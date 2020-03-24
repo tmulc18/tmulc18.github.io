@@ -93,23 +93,14 @@ Below are plots and  an animation of our simulated states.
 <div class="row">
  <div class = "column">
 <img src="/assets/DeepPhysicsPrior/sim_1.png">
-<div class="thecap" style="text-align:center">Simulation results of single pendulum.</div>
  </div>
-
  <div class = "column">
  <img src="/assets/DeepPhysicsPrior/single_pendulum_analytic.gif">
-<div class="thecap" style="text-align:center">Video animation of single pendulum.</div> 
+</div>
+<div class="thecap">(Left) Plots of the position and velocity.  (Right) Animation of single pendulum.</div>
 </div>
 
-</div>
 
-
-<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:50%">
-        <img src="/assets/DeepPhysicsPrior/sim_1.png">
-        <div class="thecap" style="text-align:center">Simulation results of single pendulum.</div>
-        <img src="/assets/DeepPhysicsPrior/single_pendulum_analytic.gif">
-        <div class="thecap" style="text-align:center">Video animation of single pendulum.</div>
-</div>
 
 
 
