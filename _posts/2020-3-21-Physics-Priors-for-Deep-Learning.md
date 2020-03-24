@@ -21,22 +21,22 @@ Outline:
 6. Fun with models
 
 # System modeling
-We would like to be able to simulate a double pedulum, and to do that we are going to model the system from first principles.
+We would like to be able to simulate a double pedulum, and to do that we are going to model the system from first principles.  This is necessary, because we don't have an actual pendulum with sensors to read states--if you have this, feel free to skip this section!
 
 The double pendulum can be modeled use force diagrams. You can write equations that describe the acclerations of each of the masses, where each is a function of the angles and lengths of pendelums.    
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:80%">
 	<img src="/assets/DeepPhysicsPrior/double-pendulum.svg">
-	<div class="thecap" style="text-align:left">Double Pendulum Diagrams.</div>
+	<div class="thecap" style="text-align:center">Double Pendulum Diagrams.</div>
 </div>
 
-The full derivation can be found [here](https://www.myphysicslab.com/pendulum/double-pendulum-en.html), but below is the final result.
+The full derivation can be found [here](https://www.myphysicslab.com/pendulum/double-pendulum-en.html), but below is the final result that shows four equations, describing the angular acceleration and velocity of each each angle.
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:80%">
         <img src="/assets/DeepPhysicsPrior/dp_eqn.png">
 </div>
 
-Note that to get the dynamics for the single pendulum, we can set $$ L_2 = m_2 = 0$$.  Then, because we are only interested in the first pendulum, our system state is
+Because we are only interested in the single pendulum for now, we can set $$ L_2 = m_2 = 0$$.  Then our system state is defined as
 
 $$ q = [\theta_1, \theta'_1]^T $$
 
@@ -49,7 +49,16 @@ I found [this](www.people.fas.harvard.edu/~djmorin/chap1.pdf) reference helpful 
 
 There are basically two ways to create a simulation.
 
-The first is to assume that you have some function $$ m: R^{1+n} \rightarrow R^n $$, such that for every $$t$$ you can plug it and the initial state, $$q_0$$, into $$m$$ to get the complete state information.  You might encounter these types of systems in an intro differential equations course (think linear ODE).  Our single pendulum system doesn't fall into this category, but an object falling from the sky with no air does.  To simulate these systems, you take the initial state and evalute $$m$$ over all values of $$ \{t_0, t_1, ... , t_\tau\}$$ and look at the results.
+The first is to assume that you have some function $$ m: R^{1+n} \rightarrow R^n $$, such that for every $$t$$ you can plug it and the initial state, $$q_0$$, into $$m$$ to get the complete state information.  You might encounter these types of systems in an intro differential equations course (think linear ODE).  Our single pendulum system doesn't fall into this category, but an object falling from the sky does.  To simulate these systems, you take the initial state and evalute $$m$$ over all values of $$ \{t_0, t_1, ... , t_\tau\}$$ and look at the results.  For example, a falling projectile with no drag can be modeled as
+
+$$ q_t = [x_t,y_t]^T = [v_o t \cos(\theta), v_t t \sin(\theta)-\frac{1}{2}g t^2]$$
+
+where $$v_o$$ is the initial velocity, $$theta$$ is the launch angle, and we assume the starting position is $$q_0 = [0,0]^T$$. The equation can be used to create this animation found on [Wikipedia](https://en.wikipedia.org/wiki/Projectile_motion).
+
+<div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:80%">
+        <img src="/assets/DeepPhysicsPrior/projectile.gif">
+        <div class="thecap" style="text-align:center">Two falling projectiles, but only one with an initial velocity.</div>
+</div>
 
 The second type of system you might encounter won't have a DE that your can solve directly, thus you'll have to approximate the solution numerically.  You have some given intial state $$q_0$$ and a function $$R^n \rightarrow R^n$$ that defines how the state is changing at state $$q$$.  Armed with this, you can make small steps approximate the path of the state.  The simplest way to do this is with Euler's method, but the more accureate way, which the author's use in their paper, is RK4.  If you aren't familiar with Euler's method, here is how you'd take an Euler-step to get the next state
 
@@ -79,7 +88,7 @@ for i,t_ in enumerate(t):
   w = w + h*w_t
   theta = theta + h*w
 ```
-Below are plots of the state and even an animation of our simulated states.
+Below are plots and  an animation of our simulated states.
 
 <div class="imgcap_noborder" style="display: block; margin-left: auto; margin-right: auto; width:50%">
         <img src="/assets/DeepPhysicsPrior/sim_1.png">
